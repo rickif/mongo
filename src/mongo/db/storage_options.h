@@ -48,7 +48,7 @@ struct StorageGlobalParams {
     static const char* kDefaultConfigDbPath;
 
     StorageGlobalParams()
-        : engine("mmapv1"),
+        : engine("wiredTiger"),
           dbpath(kDefaultDbPath),
           upgrade(false),
           repair(false),

@@ -508,6 +508,7 @@ static void _initAndListen(int listenPort) {
 
     // Warn if we detect configurations for multiple registered storage engines in
     // the same configuration file/environment.
+    storageGlobalParams.engine = "wiredTiger";
     if (serverGlobalParams.parsedOpts.hasField("storage")) {
         BSONElement storageElement = serverGlobalParams.parsedOpts.getField("storage");
         invariant(storageElement.isABSONObj());
