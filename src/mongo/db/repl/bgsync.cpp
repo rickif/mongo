@@ -50,6 +50,8 @@
 #include "mongo/util/fail_point_service.h"
 #include "mongo/util/log.h"
 
+#include "mongo/logme/logme.hpp"
+
 namespace mongo {
 
 using std::string;
@@ -258,6 +260,7 @@ void BackgroundSync::produce(OperationContext* txn) {
     }
 
     while (!inShutdown()) {
+        Glogme() << "sync oplog" << std::endl;
         if (!_syncSourceReader.moreInCurrentBatch()) {
             // Check some things periodically
             // (whenever we run out of items in the
@@ -352,8 +355,15 @@ void BackgroundSync::produce(OperationContext* txn) {
             boost::unique_lock<boost::mutex> lock(_mutex);
             _lastFetchedHash = o["h"].numberLong();
             _lastOpTimeFetched = o["ts"]._opTime();
+            LOG(0) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
+            LOG(1) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
+            LOG(2) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
             LOG(3) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
         }
+        LOG(0) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
+        LOG(1) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
+        LOG(2) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
+        LOG(3) << "replSet lastOpTimeFetched: " << _lastOpTimeFetched.toStringPretty();
     }
 }
 

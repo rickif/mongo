@@ -1,8 +1,12 @@
+#ifndef LOGME_HPP__
+#define LOGME_HPP__
+
 #include <fstream>
 #include <ctime>
 #include <chrono>
+
 class Logme {
-    friend Logme& GetGlobalLogme();
+    friend Logme& Glogme();
     public:
         ~Logme() {
             _ofs.close();
@@ -23,7 +27,7 @@ class Logme {
         std::ofstream _ofs;
 };
 
-Logme &GetGlobalLogme() {
+inline Logme &Glogme() {
     static Logme logme;
     auto now = std::chrono::system_clock::now();
     auto milli = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
@@ -34,3 +38,5 @@ Logme &GetGlobalLogme() {
     logme._ofs << (milli % 1000) << "\t";
     return logme;
 }
+
+#endif

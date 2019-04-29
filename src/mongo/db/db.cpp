@@ -113,6 +113,8 @@
 #include "mongo/util/time_support.h"
 #include "mongo/util/version.h"
 
+#include "mongo/logme/logme.hpp"
+
 #if !defined(_WIN32)
 #include <sys/file.h>
 #endif
@@ -710,6 +712,7 @@ int wmain(int argc, wchar_t* argvW[], wchar_t* envpW[]) {
 }
 #else
 int main(int argc, char* argv[], char** envp) {
+    Glogme() << "start" << std::endl;
     int exitCode = mongoDbMain(argc, argv, envp);
     quickExit(exitCode);
 }
